@@ -9,6 +9,25 @@
   <body class="mixpanel-platform-body">
     <h1>Hello, World!</h1>
     <script>
+    
+    MP.api.custom_query(editor.getValue(), params)
+                .done(function(resp) {
+                    var stringified = JSON.stringify(resp, undefined, 2);
+                    set_json_output(stringified);
+                    set_table_output(resp);
+                    last_response = resp;
+                })
+                .fail(function($xhr) {
+                    // Somehow the request is not parsed into JSON event with application/json header
+                    var error = $xhr.request.responseText;
+                    var error_text = "Requst failed";
+                    try {
+                        error_text = JSON.parse(error).error;
+                    } catch (err) {
+                        error_text = $xhr.request.responseText;
+                    }
+                    set_json_output(error_text);
+                });
       // Run queries and display results here<script type="text/cq" id="getting_started_query">
     function main() {
       // Take all events in the given date range.
