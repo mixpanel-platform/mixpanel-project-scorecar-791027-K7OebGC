@@ -10,6 +10,8 @@
     <h1>Hello, World!</h1>
     <script>
     
+    // HERE: editor.getValue() should be the function main() {} 
+    
     MP.api.custom_query(editor.getValue(), params)
                 .done(function(resp) {
                     var stringified = JSON.stringify(resp, undefined, 2);
